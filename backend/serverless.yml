@@ -1,6 +1,4 @@
 # TODO: Change the name of the org 
-#org: Maiyo
-app: serverless-todo-app
 service: serverless-todo-app
 
 plugins:
@@ -27,6 +25,7 @@ provider:
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
     ATTACHMENT_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
+    AUTH_0_SECRET: 5ZNXjTY3GOxD2OYHfkae9okLR3qlXaOQ6MdXQWxKr-kMc5ZFpVf9JQeZGqxVYpQU
 
   logs:
     # Enable API Gateway logs
@@ -57,8 +56,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
-
-  iamRoleStatements:
+    iamRoleStatements:
       - Effect: Allow
         Action:
           - dynamodb:Query
@@ -81,7 +79,6 @@ functions:
           request:
             schemas:
               application/json: ${file(models/create-todo-model.json)}
-
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -100,7 +97,11 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
-
+          cors: true
+          authorizer: Auth
+          request:
+            schemas:
+              application/json: ${file(models/update-todo-model.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -122,6 +123,8 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+          cors: true
+          authorizer: Auth
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -141,6 +144,8 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
+          cors: true
+          authorizer: Auth
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -197,7 +202,7 @@ resources:
               - AttributeName: createdAt
                 KeyType: RANGE
             Projection:
-              ProjectionType: ALL 
+              ProjectionType: ALL # What attributes will be copied to an index
 
     # TODO: Complete the bucket properties below. 
     # Do not forget to add the CorsConfiguration propoerty
