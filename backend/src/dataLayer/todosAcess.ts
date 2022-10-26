@@ -21,7 +21,7 @@ export class TodosAccess {
     async getTodosForUser(userId: string): Promise<TodoItem[]> {
       logger.info('Getting all todos for the logged in user')
   
-      const result = await this.docClient.scan({
+      const result = await this.docClient.query({
         TableName: this.todosTable,
         KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {

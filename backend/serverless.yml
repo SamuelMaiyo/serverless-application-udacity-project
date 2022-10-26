@@ -6,7 +6,9 @@ service: serverless-todo-app
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
-  - serverless-plugin-tracing
+  - serverless-plugin-tracing  	
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
 
 provider:
   name: aws
@@ -57,6 +59,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestValidator
 
   iamRoleStatements:
       - Effect: Allow
@@ -78,6 +81,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestValidator
           request:
             schemas:
               application/json: ${file(models/create-todo-model.json)}
@@ -100,6 +104,7 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+          reqValidatorName: RequestValidator
 
     iamRoleStatements:
       - Effect: Allow
@@ -122,6 +127,7 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+          reqValidatorName: RequestValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -141,12 +147,24 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
+          reqValidatorName: RequestValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
           - s3:PutObject
           - s3:GetObject
         Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
+
+  # This function is used to setup request validation.
+  # It invalidates create and update requests with empty bodies or with fields containing only space characters.
+  RequestValidator:  
+      Type: "AWS::ApiGateway::RequestValidator"
+      Properties:
+        Name: 'my-req-validator'
+        RestApiId: 
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false 
 
 resources:
   Resources:
@@ -235,3 +253,4 @@ resources:
               Action: 's3:GetObject'
               Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*'
         Bucket: !Ref AttachmentsBucket
+ 
