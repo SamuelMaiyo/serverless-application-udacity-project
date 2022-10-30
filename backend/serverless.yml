@@ -6,8 +6,14 @@ service: serverless-todo-app
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
+<<<<<<< HEAD
   - serverless-plugin-tracing
   - serverless-reqvalidator-plugin
+=======
+  - serverless-plugin-tracing  	
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+>>>>>>> a88a48223712d3c2887f8957110bd4095e75f659
 
 provider:
   name: aws
@@ -57,8 +63,14 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+<<<<<<< HEAD
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
     iamRoleStatements:
+=======
+          reqValidatorName: RequestValidator
+
+  iamRoleStatements:
+>>>>>>> a88a48223712d3c2887f8957110bd4095e75f659
       - Effect: Allow
         Action:
           - dynamodb:Query
@@ -81,6 +93,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestValidator
           request:
             schema:
               application/json: ${file(models/create-todo-model.json)}
@@ -104,12 +117,17 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+<<<<<<< HEAD
           cors: true
           authorizer: Auth
           request:
             schema:
               application/json: ${file(models/update-todo-model.json)}
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-update-todo-role-${self:provider.stage}
+=======
+          reqValidatorName: RequestValidator
+
+>>>>>>> a88a48223712d3c2887f8957110bd4095e75f659
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -129,9 +147,13 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+<<<<<<< HEAD
           cors: true
           authorizer: Auth
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-delete-todo-role-${self:provider.stage}
+=======
+          reqValidatorName: RequestValidator
+>>>>>>> a88a48223712d3c2887f8957110bd4095e75f659
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -152,9 +174,13 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
+<<<<<<< HEAD
           cors: true
           authorizer: Auth
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-s3-upload-role-${self:provider.stage}
+=======
+          reqValidatorName: RequestValidator
+>>>>>>> a88a48223712d3c2887f8957110bd4095e75f659
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -166,6 +192,17 @@ functions:
           - s3:*
           - xray:PutTraceSegments
         Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
+
+  # This function is used to setup request validation.
+  # It invalidates create and update requests with empty bodies or with fields containing only space characters.
+  RequestValidator:  
+      Type: "AWS::ApiGateway::RequestValidator"
+      Properties:
+        Name: 'my-req-validator'
+        RestApiId: 
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false 
 
 resources:
   Resources:
@@ -251,7 +288,15 @@ resources:
           Statement:
             - Sid: PublicReadForGetBucketObjects
               Effect: Allow
+<<<<<<< HEAD
               Principal: "*"
               Action: "s3:GetObject"
               Resource: "arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*"
         Bucket: !Ref AttachmentsBucket
+=======
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*'
+        Bucket: !Ref AttachmentsBucket
+ 
+>>>>>>> a88a48223712d3c2887f8957110bd4095e75f659
