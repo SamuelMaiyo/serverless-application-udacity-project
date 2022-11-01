@@ -27,7 +27,8 @@ provider:
     TODOS_TABLE: Todos-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
     ATTACHMENT_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
-    SIGNED_URL_EXPIRATION: 300
+    SIGNED_URL_EXPIRATION: 3000
+    AUTH_0_SECRET_ID: M6SeL9OXzRAEzK_q1339KrnCKSGn1ar1PbPRNytzrBVijmGi4McTbiOXgjRi_gMv
 
   logs:
     # Enable API Gateway logs
