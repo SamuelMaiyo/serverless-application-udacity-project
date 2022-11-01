@@ -48,14 +48,14 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-    xMyRequestValidator:  
-      Type: "AWS::ApiGateway::RequestValidator"
-      Properties:
-        Name: 'my-req-validator'
-        RestApiId: 
-          Ref: ApiGatewayRestApi
-        ValidateRequestBody: true
-        ValidateRequestParameters: false  
+  xMyRequestValidator:  
+    Type: "AWS::ApiGateway::RequestValidator"
+    Properties:
+      Name: 'my-req-validator'
+      RestApiId: 
+        Ref: ApiGatewayRestApi
+      ValidateRequestBody: true
+      ValidateRequestParameters: false  
 
   # TODO: Configure this function - 
   # Provide iamRoleStatements property for performing Actions on DynamoDB
