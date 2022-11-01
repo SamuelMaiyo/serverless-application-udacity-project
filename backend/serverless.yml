@@ -48,6 +48,15 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
+      xMyRequestValidator:  
+      Type: "AWS::ApiGateway::RequestValidator"
+      Properties:
+        Name: 'my-req-validator'
+        RestApiId: 
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false  
+
   # TODO: Configure this function - 
   # Provide iamRoleStatements property for performing Actions on DynamoDB
   GetTodos:
@@ -58,6 +67,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: 'xMyRequestValidator'
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow
@@ -82,6 +92,7 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: 'xMyRequestValidator'
           request:
             schema:
               application/json: ${file(models/create-todo-model.json)}
@@ -107,6 +118,7 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
+          reqValidatorName: 'xMyRequestValidator'
           request:
             schema:
               application/json: ${file(models/update-todo-model.json)}
@@ -132,6 +144,7 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
+          reqValidatorName: 'xMyRequestValidator'
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-delete-todo-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow
@@ -155,6 +168,7 @@ functions:
           path: todos/{todoId}/attachment
           cors: true
           authorizer: Auth
+          reqValidatorName: 'xMyRequestValidator'
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-s3-upload-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow
