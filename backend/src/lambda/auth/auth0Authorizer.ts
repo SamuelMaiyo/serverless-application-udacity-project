@@ -14,7 +14,7 @@ const logger = createLogger('auth')
 const secretKey = process.env.AUTH_0_SECRET_ID
  
 
-export const handler = async (
+exports.handler = async (
   event: CustomAuthorizerEvent
 ): Promise<CustomAuthorizerResult> => {
   logger.info('Authorizing a user', event.authorizationToken)
