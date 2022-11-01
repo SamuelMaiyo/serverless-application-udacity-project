@@ -58,6 +58,7 @@ functions:
       ValidateRequestParameters: false  
 
   # TODO: Configure this function - 
+  
   # Provide iamRoleStatements property for performing Actions on DynamoDB
   GetTodos:
     handler: src/lambda/http/getTodos.handler
