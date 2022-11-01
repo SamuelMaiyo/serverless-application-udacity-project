@@ -24,7 +24,7 @@ PCSlgp/8xRrCNC3zZHwXYZaHJsWTdkoD0t988zB1wz9NU2tp7eQpzqXtAnpU4Ho3
 wXLuiYZWgNKvsvEk5URPUXE=
 -----END CERTIFICATE-----`
 
-exports.handler = async (event: CustomAuthorizerEvent): Promise<CustomAuthorizerResult> => {
+export const handler = async (event: CustomAuthorizerEvent): Promise<CustomAuthorizerResult> => {
   try {
     const jwtToken = verifyToken(event.authorizationToken)
     console.log('User was authorized ', jwtToken)
