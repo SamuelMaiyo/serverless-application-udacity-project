@@ -56,7 +56,11 @@ functions:
         Ref: ApiGatewayRestApi
       ValidateRequestBody: true
       ValidateRequestParameters: false  
-
+  functions:
+  func:
+    handler: index.handler
+    url:
+      cors: true
   # TODO: Configure this function - 
   
   # Provide iamRoleStatements property for performing Actions on DynamoDB
