@@ -11,16 +11,16 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-east-2'}
   tracing:
     lambda: true
     apiGateway: true
   environment:
-    PROJECT_NAME: udatodolist
-    TODOS_TABLE: Todos-${self:provider.stage}
+    PROJECT_NAME: serverless-todo-app
+    TODOS_TABLE: ToDo-${self:provider.stage}
     
     # TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    S3_BUCKET_NAME: maiyo-serverless-todo-images-${self:provider.stage}
+    S3_BUCKET_NAME: samuel-serverless-todo-images-${self:provider.stage}
     # SIGNED_URL_EXPIRATION: 300
     AUTH_0_SECRET_ID: M6SeL9OXzRAEzK_q1339KrnCKSGn1ar1PbPRNytzrBVijmGi4McTbiOXgjRi_gMv
 
@@ -209,7 +209,7 @@ resources:
     # TODO: Fill the properties
     # Feel free to change the names as you like. 
     # TODO: Create a DynamoDB table with local secondary index and a composite key
-    TodosTable:
+    ToDoTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
