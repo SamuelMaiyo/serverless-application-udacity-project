@@ -48,7 +48,7 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-      xMyRequestValidator:  
+    xMyRequestValidator:  
       Type: "AWS::ApiGateway::RequestValidator"
       Properties:
         Name: 'my-req-validator'
