@@ -100,7 +100,9 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
-
+          request :
+            schemas:
+              application/json: ${file(models/create-todo-request.json)}
           reqValidatorName: RequestBodyValidator
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-create-todo-role-${self:provider.stage}
     iamRoleStatements:
@@ -123,6 +125,9 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
+          request :
+            schemas:
+              application/json: ${file(models/create-todo-request.json)}          
           reqValidatorName: RequestBodyValidator
 
           
