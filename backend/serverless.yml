@@ -26,7 +26,14 @@ provider:
     TODOS_TABLE: Todos-${self:provider.stage}
     S3_BUCKET_NAME: serverless-c4-udacity-kimutai-${self:provider.stage}
 
-         
+custom:
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: project4 API
+        description: Serverless application for managing Todos
+          
 
 functions:
 
