@@ -74,7 +74,7 @@ functions:
           authorizer: Auth
           request :
             schemas:
-              application/json: ${file(models/create-todo-request.json)}
+              application/json: ${file(models/create-todo-model.json)}
           reqValidatorName: RequestBodyValidator
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-create-todo-role-${self:provider.stage}
     iamRoleStatements:
@@ -99,7 +99,7 @@ functions:
           authorizer: Auth
           request :
             schemas:
-              application/json: ${file(models/create-todo-request.json)}          
+              application/json: ${file(models/update-todo-model.json)}          
           reqValidatorName: RequestBodyValidator
 
           
