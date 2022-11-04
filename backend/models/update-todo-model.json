@@ -22,7 +22,8 @@
   "required": [
     "name",
     "dueDate",
-    "done"
+    "done",
+    "length"
   ],
   
   "additionalProperties": false

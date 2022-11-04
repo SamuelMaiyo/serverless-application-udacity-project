@@ -17,7 +17,8 @@
   },
   "required": [
     "name",
-    "dueDate"
+    "dueDate",
+    "length"
   ],
   
   "additionalProperties": false
