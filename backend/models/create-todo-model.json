@@ -10,9 +10,9 @@
       "type": "string"
     },
     "length":{
-        "type": "string",
+        "optional": false,
         "minLength": 1,
-        "maxLength": 30      
+        "maxLength": 200      
     }
   },
   "required": [
