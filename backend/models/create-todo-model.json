@@ -8,11 +8,17 @@
     },
     "dueDate": {
       "type": "string"
+    },
+    "length":{
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30      
     }
   },
   "required": [
     "name",
     "dueDate"
   ],
+  
   "additionalProperties": false
 }
