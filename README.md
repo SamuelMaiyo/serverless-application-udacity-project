@@ -178,15 +178,6 @@ logger.info('User was authorized', {
 })
 ```
 
-
-# Grading the submission
-
-Once you have finished developing your application, please set `apiId` and Auth0 parameters in the `config.ts` file in the `client` folder. A reviewer would start the React development server to run the frontend that should be configured to interact with your serverless application.
-
-**IMPORTANT**
-
-*Please leave your application running until a submission is reviewed. If implemented correctly it will cost almost nothing when your application is idle.*
-
 # Suggestions
 
 To store TODO items, you might want to use a DynamoDB table with local secondary index(es). A create a local secondary index you need to create a DynamoDB resource like this:
